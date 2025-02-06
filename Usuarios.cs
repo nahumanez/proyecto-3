@@ -24,15 +24,15 @@ namespace Sistema
         }
         private void Usuarios_Load(object sender, EventArgs e)
         {
-            Buscar("ApeYNom LIKE'" + textBox1.Text + "%'");
+            Buscar("ApellidoUsu LIKE'" + textBox1.Text + "%'");
         }
         private void Buscar(string condicion)
         {
             //string consulta1;
             //consulta1 = "data source = " + mod.LeerHostDB() + "; initial catalog = Comercio; integrated security = true";
             string consulta2;
-            consulta2 = "SELECT NUsu, ApeYNom, DocumentoUsu, CuitUsu, DomicilioUsu, PostalUsu, LocalidadUsu, ProvinciaUsu, TelefonoUsu, FechaNacimientoUsu, ComentariosUsu, EMailUsu," +
-            "Estado, UsuarioUsu, ClaveUsu FROM vista_usuarios WHERE " + condicion + " ORDER BY NUsu";
+            consulta2 = "SELECT id, NombreUsu, ApellidoUsu, DocumentoUsu, CuitUsu, DomicilioUsu, PostalUsu, LocalidadUsu, ProvinciaUsu, TelefonoUsu, FechaNacimientoUsu, ComentariosUsu, EMailUsu," +
+            "Estado, UsuarioUsu, ClaveUsu FROM Usuarios WHERE " + condicion + " ORDER BY id";
             //SqlConnection sqlConnection = new SqlConnection(consulta1);
             //sqlConnection.Open();
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2, sqlConnection);

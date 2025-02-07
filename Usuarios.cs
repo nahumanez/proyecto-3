@@ -29,7 +29,7 @@ namespace Sistema
         private void Buscar(string condicion)
         {
             //string consulta1;
-            //consulta1 = "data source = " + mod.LeerHostDB() + "; initial catalog = Comercio; integrated security = true";
+            //consulta1 = "data source = " + mSod.LeerHostDB() + "; initial catalog = Comercio; integrated security = true";
             string consulta2;
             consulta2 = "SELECT id, NombreUsu, ApellidoUsu, DocumentoUsu, CuitUsu, DomicilioUsu, PostalUsu, LocalidadUsu, ProvinciaUsu, TelefonoUsu, FechaNacimientoUsu, ComentariosUsu, EMailUsu," +
             "Estado, UsuarioUsu, ClaveUsu FROM Usuarios WHERE " + condicion + " ORDER BY id";
@@ -98,7 +98,7 @@ namespace Sistema
                 "UPPER(LTRIM(RTRIM(ISNULL(NombreUsu, '****')))) AS nombre, ISNULL(DocumentoUsu, 0) AS documento, ISNULL(CuitUsu, 0) AS cuit," +
                 "LTRIM(RTRIM(ISNULL(DomicilioUsu, ''))) AS domicilio, LTRIM(RTRIM(ISNULL(PostalUsu, ''))) AS postal, LTRIM(RTRIM(ISNULL(LocalidadUsu, ''))) AS localidad," +
                 "LTRIM(RTRIM(ISNULL(ProvinciaUsu, ''))) AS provincia, LTRIM(RTRIM(ISNULL(TelefonoUsu, ''))) AS telefono, FechaNacimientoUsu AS nacimiento," +
-                "LTRIM(RTRIM(ISNULL(ComentariosUsu, ''))) AS comentarios, LTRIM(RTRIM(ISNULL(EMailUsu, ''))) AS email, ISNULL(Estado, 0) AS estado, LTRIM(RTRIM(ISNULL(UsuarioUsu, ''))) AS usuario, LTRIM(RTRIM(ISNULL(ClaveUsu, ''))) AS clave from Usuarios where NUsu=";
+                "LTRIM(RTRIM(ISNULL(ComentariosUsu, ''))) AS comentarios, LTRIM(RTRIM(ISNULL(EMailUsu, ''))) AS email, ISNULL(Estado, 0) AS estado, LTRIM(RTRIM(ISNULL(UsuarioUsu, ''))) AS usuario, LTRIM(RTRIM(ISNULL(ClaveUsu, ''))) AS clave from Usuarios where id=";
 
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2 + Conversion.Val(lLegajo.Text), sqlConnection);
                 //Conversion.Val(label2.Text)
@@ -140,7 +140,7 @@ namespace Sistema
                 return;
             // Ejecutamos el Delete
 
-            if (mod.SQL_Accion("DELETE FROM Usuarios WHERE NUsu=" + Conversion.Val(lLegajo.Text)) == false)
+            if (mod.SQL_Accion("DELETE FROM Usuarios WHERE id=" + Conversion.Val(lLegajo.Text)) == false)
             {
                 MessageBox.Show(" Hubo un Errar al intentar Borrar el usuario, Reintente, y Si el Error Persiste, " +
                 "Anote Todos los Datos que Quizo Ingresar y Comuníquese con el Programador(Otra Vez)", "Eliminar Usuario",
@@ -148,7 +148,7 @@ namespace Sistema
             }
             else
             {
-                Buscar(" NUsu =" + Conversion.Val(lLegajo.Text));
+                Buscar(" id =" + Conversion.Val(lLegajo.Text));
                 MessageBox.Show("El Usuario fue ELIMINADO de la Base de Datos. ");
             }
         }
@@ -184,10 +184,10 @@ namespace Sistema
                 "', UsuarioUsu = '" + textBox13.Text.Trim().ToUpper().Replace("'", "´") +
                 "', ClaveUsu = '" + textBox14.Text.Trim().ToUpper().Replace("'", "´") +
                 "', Estado = '" + checkBox1.Checked +
-                "' WHERE NUsu = " + mod.VNum(lLegajo.Text)) == true)
+                "' WHERE id = " + mod.VNum(lLegajo.Text)) == true)
             {
                 MessageBox.Show("Cambios Realizados Correctamente.", "Editar usuario", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Buscar(" NUsu =" + mod.VNum(lLegajo.Text));
+                Buscar(" id =" + mod.VNum(lLegajo.Text));
             }
             else
             {
@@ -202,7 +202,7 @@ namespace Sistema
             consulta = "insert into Usuarios (apellidousu, nombreusu, documentousu, cuitusu, domiciliousu, postalusu, localidadusu, provinciausu, telefonousu, fechanacimientousu, comentariosusu, emailusu, estado) values('*****', '*****', 0, '', '', '', '', '', '',  getdate(), '', '', 1)";
             if (mod.SQL_Accion(consulta))
             {
-                Buscar(" ApeYNom LIKE '%' ");
+                Buscar(" ApellidoUsu LIKE '%' ");
                 MessageBox.Show("Se ha creado un nuevo registro para el usuario que desea ingresar, seleccione la línea nueva," +
                 "cargue los datos y luego confirme con el botón 'Aceptar Cambios'.");
             }

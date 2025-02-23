@@ -27,20 +27,21 @@ namespace Sistema
         }
         private void Clientes_Load(object sender, EventArgs e)
         {
-            Buscar("ApeYNom LIKE'" + textBox1.Text + "%'");
+            Buscar("ApellidoClien LIKE'" + textBox1.Text + "%'");
         }
         private void Buscar(string condicion)
         {            
             string consulta2;
-            consulta2 = "SELECT NClien, ApeYNom, DocumentoClien, CuitClien, DomicilioClien, PostalClien, LocalidadClien, ProvinciaClien, TelefonoClien, FechaNacimientoClien, ComentariosClien, EMailClien," +
-            "Estado, UsuarioClien, ClaveClien FROM vista_clientes WHERE " + condicion + " ORDER BY NClien";
+            consulta2 = "SELECT id, ApellidoClien, NombreClien, DocumentoClien, CuitClien, DomicilioClien, PostalClien, LocalidadClien, ProvinciaClien, TelefonoClien, FechaNacimientoClien, ComentariosClien, EMailClien," +
+            "Estado, UsuarioClien, ClaveClien FROM Clientes WHERE " + condicion + " ORDER BY id";
             //SqlConnection sqlConnection = new SqlConnection("data source = " + mod.LeerHostDB() + "; initial catalog = Comercio; integrated security = true");
             //sqlConnection.Open();
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2, sqlConnection);
 
             DataSet dataSet = new DataSet();
             sqlDataAdapter.Fill(dataSet, "Clientes");
-            if (dataSet.Tables["Clientes"].Rows.Count == 0)
+            bool primeraVez = true;
+            if (dataSet.Tables["Clientes"].Rows.Count == 0 && !primeraVez)
             {
                 dataGridView1.Visible = false;
                 panel1.Visible = false;
@@ -54,6 +55,7 @@ namespace Sistema
                 dataGridView1.Visible = true;
                 lLegajo.Visible = true;
             }
+            primeraVez = false;
         }
         private void dataGridView1_CellEnter(Object sender, DataGridViewCellEventArgs e)
         {
@@ -97,7 +99,7 @@ namespace Sistema
                 "UPPER(LTRIM(RTRIM(ISNULL(NombreClien, '****')))) AS nombre, ISNULL(DocumentoClien, 0) AS documento, ISNULL(CuitClien, 0) AS cuit," +
                 "LTRIM(RTRIM(ISNULL(DomicilioClien, ''))) AS domicilio, LTRIM(RTRIM(ISNULL(PostalClien, ''))) AS postal, LTRIM(RTRIM(ISNULL(LocalidadClien, ''))) AS localidad," +
                 "LTRIM(RTRIM(ISNULL(ProvinciaClien, ''))) AS provincia, LTRIM(RTRIM(ISNULL(TelefonoClien, ''))) AS telefono, FechaNacimientoClien AS nacimiento," +
-                "LTRIM(RTRIM(ISNULL(ComentariosClien, ''))) AS comentarios, LTRIM(RTRIM(ISNULL(EMailClien, ''))) AS email, ISNULL(Estado, 0) AS estado, LTRIM(RTRIM(ISNULL(UsuarioClien, ''))) AS usuario, LTRIM(RTRIM(ISNULL(ClaveClien, ''))) AS clave from Clientes where NClien=";
+                "LTRIM(RTRIM(ISNULL(ComentariosClien, ''))) AS comentarios, LTRIM(RTRIM(ISNULL(EMailClien, ''))) AS email, ISNULL(Estado, 0) AS estado, LTRIM(RTRIM(ISNULL(UsuarioClien, ''))) AS usuario, LTRIM(RTRIM(ISNULL(ClaveClien, ''))) AS clave from Clientes where id=";
 
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2 + Conversion.Val(lLegajo.Text), sqlConnection);
                 //Conversion.Val(label2.Text)
@@ -139,7 +141,7 @@ namespace Sistema
                 return;
             // Ejecutamos el Delete
 
-            if (mod.SQL_Accion("DELETE FROM Clientes WHERE NClien=" + Conversion.Val(lLegajo.Text)) == false)
+            if (mod.SQL_Accion("DELETE FROM Clientes WHERE id=" + Conversion.Val(lLegajo.Text)) == false)
             {
                 MessageBox.Show(" Hubo un Errar al intentar Borrar el cliente, Reintente, y Si el Error Persiste, " +
                 "Anote Todos los Datos que Quizo Ingresar y Comuníquese con el Programador(Otra Vez)", "Eliminar Cliente",
@@ -147,7 +149,7 @@ namespace Sistema
             }
             else
             {
-                Buscar(" NClien=" + Conversion.Val(lLegajo.Text));
+                Buscar(" id=" + Conversion.Val(lLegajo.Text));
                 MessageBox.Show("El Cliente fue ELIMINADO de la Base de Datos. ");
             }
         }
@@ -179,12 +181,14 @@ namespace Sistema
                 "', TelefonoClien = '" + textBox8.Text.Trim().Replace(".", "´") +
                 "', FechaNacimientoClien = " + mod.FechaSQL(dateTimePicker1.Value) +
                 ", ComentariosClien = '" + textBox10.Text.Trim().ToUpper().Replace("'", "´") +
+                "', UsuarioClien = '" + textBox13.Text.Trim().ToUpper().Replace("'", "´") +
+                "', ClaveClien = '" + textBox14.Text.Trim().ToUpper().Replace("'", "´") +
                 "', EmailClien = '" + textBox9.Text.Trim().ToUpper().Replace("'", "´") +
                 "', Estado = '" + checkBox1.Checked +
-                "' WHERE NClien = " + mod.VNum(lLegajo.Text)) == true)
+                "' WHERE id = " + mod.VNum(lLegajo.Text)) == true)
             {
                 MessageBox.Show("Cambios Realizados Correctamente.", "Editar cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Buscar(" NClien =" + mod.VNum(lLegajo.Text));
+                Buscar(" id =" + mod.VNum(lLegajo.Text));
             }
             else
             {
@@ -199,7 +203,7 @@ namespace Sistema
             consulta = "insert into Clientes (apellidoclien, nombreclien, documentoclien, cuitclien, domicilioclien, postalclien, localidadclien, provinciaclien, telefonoclien, fechanacimientoclien, comentariosclien, emailclien, estado) values('*****', '*****', 0, '', '', '', '', '', '',  getdate(), '', '', 1)";
             if (mod.SQL_Accion(consulta))
             {
-                Buscar(" ApeYNom LIKE '%' ");
+                Buscar(" ApellidoClien LIKE '%' ");
                 MessageBox.Show("Se ha creado un nuevo registro para el cliente que desea ingresar, seleccione la línea nueva," +
                 "cargue los datos y luego confirme con el botón 'Aceptar Cambios'.");
             }

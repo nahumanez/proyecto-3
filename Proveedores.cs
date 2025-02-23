@@ -26,7 +26,7 @@ namespace Sistema
         }
         private void Proveedores_Load(object sender, EventArgs e)
         {
-            Buscar("ApeYNom LIKE'" + textBox1.Text + "%'");
+            Buscar("ApellidoProvee LIKE'" + textBox1.Text + "%'");
 
             //this.Text = "Bienvenido ";
         }        
@@ -35,15 +35,17 @@ namespace Sistema
             //string consulta1;
             // consulta1 = "data source = " + mod.LeerHostDB() + "; initial catalog = Comercio; integrated security = true";
             string consulta2;            
-            consulta2 = "SELECT NProvee, ApeYNom, DocumentoProvee, CuitProvee, DomicilioProvee, PostalProvee, LocalidadProvee, ProvinciaProvee, TelefonoProvee, FechaNacimientoProvee, ComentariosProvee, EMailProvee," +
-            "Estado FROM vista_proveedores WHERE " + condicion + " ORDER BY ApeYNom";          
+            consulta2 = "SELECT id, ApellidoProvee, NombreProvee, DocumentoProvee, CuitProvee, DomicilioProvee, PostalProvee, LocalidadProvee, ProvinciaProvee, TelefonoProvee, FechaNacimientoProvee, ComentariosProvee, EMailProvee," +
+            "Estado FROM Proveedores WHERE " + condicion + " ORDER BY ApellidoProvee";          
             //SqlConnection sqlConnection = new SqlConnection(consulta1);
             //sqlConnection.Open();
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2, sqlConnection);
 
             DataSet dataSet = new DataSet();
             sqlDataAdapter.Fill(dataSet, "Proveedores");
-            if (dataSet.Tables["Proveedores"].Rows.Count == 0)
+            //bool primeraVez = true;  // Variable de control
+
+            if (dataSet.Tables["Proveedores"].Rows.Count == 0 /*&& !primeraVez*/)
             {
                 dataGridView1.Visible = false;
                 panel1.Visible = false;
@@ -57,6 +59,7 @@ namespace Sistema
                 dataGridView1.Visible = true;
                 label2.Visible = true;
             }
+            //primeraVez = false;
         }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -106,7 +109,7 @@ namespace Sistema
                 "UPPER(LTRIM(RTRIM(ISNULL(NombreProvee, '****')))) AS nombre, ISNULL(DocumentoProvee, 0) AS documento, ISNULL(CuitProvee, 0) AS cuit," +
                 "LTRIM(RTRIM(ISNULL(DomicilioProvee, ''))) AS domicilio, LTRIM(RTRIM(ISNULL(PostalProvee, ''))) AS postal, LTRIM(RTRIM(ISNULL(LocalidadProvee, ''))) AS localidad," +
                 "LTRIM(RTRIM(ISNULL(ProvinciaProvee, ''))) AS provincia, LTRIM(RTRIM(ISNULL(TelefonoProvee, ''))) AS telefono, FechaNacimientoProvee AS nacimiento," +
-                "LTRIM(RTRIM(ISNULL(ComentariosProvee, ''))) AS comentarios, LTRIM(RTRIM(ISNULL(EMailProvee, ''))) AS email, ISNULL(Estado, 0) AS estado from Proveedores where NProvee=";
+                "LTRIM(RTRIM(ISNULL(ComentariosProvee, ''))) AS comentarios, LTRIM(RTRIM(ISNULL(EMailProvee, ''))) AS email, ISNULL(Estado, 0) AS estado from Proveedores where id=";
 
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2 + Conversion.Val(label2.Text), sqlConnection);
                 //Conversion.Val(label2.Text)
@@ -130,13 +133,13 @@ namespace Sistema
         }        
         private void bBuscar_Click(object sender, EventArgs e)
         {
-            Buscar("ApeYNom LIKE'" + textBox1.Text + "%'");
+            Buscar("ApellidoProvee LIKE'" + textBox1.Text + "%'");
             
         }
         private void pBorrar_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
-            Buscar("ApeYNom LIKE'" + textBox1.Text + "%'");
+            Buscar("ApellidoProvee LIKE'" + textBox1.Text + "%'");
         }
         private void bEliminar_Click(object sender, EventArgs e)
         {
@@ -146,7 +149,7 @@ namespace Sistema
                 return;
             // Ejecutamos el Delete
 
-            if (mod.SQL_Accion("DELETE FROM Proveedores WHERE NProvee=" + Conversion.Val(label2.Text)) == false)
+            if (mod.SQL_Accion("DELETE FROM Proveedores WHERE id=" + Conversion.Val(label2.Text)) == false)
             {
                 MessageBox.Show(" Hubo un Errar al intentar Borrar el cliente, Reintente, y Si el Error Persiste, " +
                 "Anote Todos los Datos que Quizo Ingresar y Comuníquese con el Programador(Otra Vez)", "Eliminar Proveedor",
@@ -154,7 +157,7 @@ namespace Sistema
             }
             else
             {
-                Buscar(" NProvee=" + Conversion.Val(label2.Text));
+                Buscar(" id=" + Conversion.Val(label2.Text));
                 MessageBox.Show("El Proveedor fue ELIMINADO de la Base de Datos. ");
             }
         }
@@ -188,10 +191,10 @@ namespace Sistema
                 ", ComentariosProvee = '" + textBox10.Text.Trim().ToUpper().Replace("'", "´") +
                 "', EmailProvee = '" + textBox9.Text.Trim().ToUpper().Replace("'", "´") +
                 "', Estado = '" + checkBox1.Checked +
-                "' WHERE NProvee = " + mod.VNum(label2.Text)) == true)
+                "' WHERE id = " + mod.VNum(label2.Text)) == true)
             {
                 MessageBox.Show("Cambios Realizados Correctamente.", "Editar proveedor", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Buscar(" NProvee =" + mod.VNum(label2.Text));
+                Buscar(" id =" + mod.VNum(label2.Text));
             }
             else
             {
@@ -206,7 +209,7 @@ namespace Sistema
             consulta = "insert into Proveedores (apellidoprovee, nombreprovee, documentoprovee, cuitprovee, domicilioprovee, postalprovee, localidadprovee, provinciaprovee, telefonoprovee, fechanacimientoprovee, comentariosprovee, emailprovee, estado) values('*****', '*****', 0, '', '', '', '', '', '',  getdate(), '', '', 1)";
             if (mod.SQL_Accion(consulta))
             {
-                Buscar(" ApeYNom LIKE '****%' ");
+                Buscar(" ApellidoProvee LIKE '****%' ");
                 MessageBox.Show("Se ha creado un nuevo registro para el proveedor que desea ingresar, seleccione la línea nueva," +
                 "cargue los datos y luego confirme con el botón 'Aceptar Cambios'.");
             }

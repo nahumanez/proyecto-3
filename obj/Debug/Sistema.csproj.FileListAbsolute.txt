@@ -1,0 +1,15 @@
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\bin\Debug\Sistema.exe.config
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\bin\Debug\Sistema.exe
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\bin\Debug\Sistema.pdb
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.csproj.AssemblyReference.cache
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.Clientes.resources
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.Login.resources
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.MenuPrincipal.resources
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.Properties.Resources.resources
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.Proveedores.resources
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.RegistroUsuario.resources
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.Usuarios.resources
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.csproj.GenerateResource.cache
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.csproj.CoreCompileInputs.cache
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.exe
+C:\Users\nahu2\OneDrive\Escritorio\Proyecto_para_empleo\proyecto-3\obj\Debug\Sistema.pdb

@@ -40,41 +40,46 @@ namespace Sistema
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(110, 95);
+            this.label1.Location = new System.Drawing.Point(165, 146);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
+            this.label1.Size = new System.Drawing.Size(64, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Usuario";
             // 
             // tUsuario
             // 
-            this.tUsuario.Location = new System.Drawing.Point(183, 92);
+            this.tUsuario.Location = new System.Drawing.Point(274, 142);
+            this.tUsuario.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tUsuario.Name = "tUsuario";
-            this.tUsuario.Size = new System.Drawing.Size(100, 20);
+            this.tUsuario.Size = new System.Drawing.Size(148, 26);
             this.tUsuario.TabIndex = 1;
             // 
             // tClave
             // 
-            this.tClave.Location = new System.Drawing.Point(183, 144);
+            this.tClave.Location = new System.Drawing.Point(274, 222);
+            this.tClave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tClave.Name = "tClave";
             this.tClave.PasswordChar = '*';
-            this.tClave.Size = new System.Drawing.Size(100, 20);
+            this.tClave.Size = new System.Drawing.Size(148, 26);
             this.tClave.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(113, 144);
+            this.label2.Location = new System.Drawing.Point(170, 222);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(34, 13);
+            this.label2.Size = new System.Drawing.Size(48, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "Clave";
             // 
             // bEntrar
             // 
-            this.bEntrar.Location = new System.Drawing.Point(196, 196);
+            this.bEntrar.Location = new System.Drawing.Point(294, 302);
+            this.bEntrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.bEntrar.Name = "bEntrar";
-            this.bEntrar.Size = new System.Drawing.Size(75, 23);
+            this.bEntrar.Size = new System.Drawing.Size(112, 35);
             this.bEntrar.TabIndex = 4;
             this.bEntrar.Text = "Entrar";
             this.bEntrar.UseVisualStyleBackColor = true;
@@ -82,9 +87,10 @@ namespace Sistema
             // 
             // bRegistrar
             // 
-            this.bRegistrar.Location = new System.Drawing.Point(196, 248);
+            this.bRegistrar.Location = new System.Drawing.Point(294, 382);
+            this.bRegistrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.bRegistrar.Name = "bRegistrar";
-            this.bRegistrar.Size = new System.Drawing.Size(75, 23);
+            this.bRegistrar.Size = new System.Drawing.Size(112, 35);
             this.bRegistrar.TabIndex = 5;
             this.bRegistrar.Text = "Registrar";
             this.bRegistrar.UseVisualStyleBackColor = true;
@@ -92,15 +98,16 @@ namespace Sistema
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 304);
+            this.ClientSize = new System.Drawing.Size(690, 468);
             this.Controls.Add(this.bRegistrar);
             this.Controls.Add(this.bEntrar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tClave);
             this.Controls.Add(this.tUsuario);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Login";
             this.Text = "Login";
             this.ResumeLayout(false);

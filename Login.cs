@@ -11,66 +11,79 @@ using System.Data.SqlClient;
 using System.IO;
 
 namespace Sistema
-{
-    public partial class Login : Form
     {
-        public Login()
+        public partial class Login : Form
         {
-            InitializeComponent();
-        }
-        Modulo mod = new Modulo();        
+            public Login()
+            {
+                InitializeComponent();
+            }
+            Modulo mod = new Modulo();
         private void bEntrar_Click(object sender, EventArgs e)
         {
-            SqlConnection conexion = new SqlConnection("data source = " + Convert.ToString(mod.LeerHostDB()) + "; initial catalog = Comercio; integrated security = true");
+            string usuarioIngresado = tUsuario.Text.Trim();
+            string contraseñaIngresada = tClave.Text.Trim();
+            bool autenticado = false;
+            string tipoUsuario = "";
+            string nombre = "", apellido = "";
 
-            string usuarioIngresado = tUsuario.Text;
-            string contraseñaIngresada = tClave.Text;
-
-            try
+            using (SqlConnection conexion = new SqlConnection("data source=" + mod.LeerHostDB() + "; initial catalog=Comercio; integrated security=true"))
             {
-                conexion.Open();
-                string query = "SELECT COUNT(*) FROM Usuarios WHERE UsuarioUsu = @Usuario AND ClaveUsu = @Contraseña";
-                SqlCommand cmd = new SqlCommand(query, conexion);
-                cmd.Parameters.AddWithValue("@Usuario", usuarioIngresado);
-                cmd.Parameters.AddWithValue("@Contraseña", contraseñaIngresada);
-
-                string consulta = "select NombreUsu, ApellidoUsu from Usuarios where UsuarioUsu =" + "'" + usuarioIngresado + "'" + " AND ClaveUsu =" + "'" + contraseñaIngresada + "'";
-
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta, conexion);
-
-                DataSet dataSet = new DataSet();
-                sqlDataAdapter.Fill(dataSet, "Usuarios");
-
-                int count = (int)cmd.ExecuteScalar();
-
-                if (count > 0)
+                try
                 {
-                    MenuPrincipal menuPrincipal = new MenuPrincipal();
-                    string nombre = dataSet.Tables["Usuarios"].Rows[0]["NombreUsu"].ToString();
-                    string apellido = dataSet.Tables["Usuarios"].Rows[0]["ApellidoUsu"].ToString();
+                    conexion.Open();
 
-                    menuPrincipal.Text = "Bienvenido " + nombre + " " + apellido;
+                    string query = @"
+                SELECT 'Usuario' AS Tipo, NombreUsu AS Nombre, ApellidoUsu AS Apellido 
+                FROM Usuarios WHERE UsuarioUsu = @Usuario AND ClaveUsu = @Contraseña
+                UNION
+                SELECT 'Cliente' AS Tipo, NombreClien AS Nombre, ApellidoClien AS Apellido 
+                FROM Clientes WHERE UsuarioClien = @Usuario AND ClaveClien = @Contraseña";
 
-                    menuPrincipal.Show();
+                    using (SqlCommand cmd = new SqlCommand(query, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@Usuario", usuarioIngresado);
+                        cmd.Parameters.AddWithValue("@Contraseña", contraseñaIngresada);
+
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                tipoUsuario = reader["Tipo"].ToString();
+                                nombre = reader["Nombre"].ToString();
+                                apellido = reader["Apellido"].ToString();
+                                autenticado = true;
+                            }
+                        }
+                    }
+
+                    if (autenticado)
+                    {
+                        MenuPrincipal menu = new MenuPrincipal(tipoUsuario);
+                        menu.Text = $"Bienvenido {nombre} {apellido} ({tipoUsuario})";
+                        menu.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Usuario o contraseña incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        tClave.Clear();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Usuario o contraseña incorrectos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error de conexión: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error de conexión: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                conexion.Close();
             }
         }
+
+
+
         private void bRegistrar_Click(object sender, EventArgs e)
-        {
-            RegistroUsuario registroUsuario = new RegistroUsuario();
-            registroUsuario.Show();
+            {
+                RegistroUsuario registroUsuario = new RegistroUsuario();
+                registroUsuario.Show();
+            }
         }
     }
-}
+

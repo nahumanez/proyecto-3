@@ -28,13 +28,10 @@ namespace Sistema
         }
         private void Buscar(string condicion)
         {
-            //string consulta1;
-            //consulta1 = "data source = " + mSod.LeerHostDB() + "; initial catalog = Comercio; integrated security = true";
             string consulta2;
             consulta2 = "SELECT id, NombreUsu, ApellidoUsu, DocumentoUsu, CuitUsu, DomicilioUsu, PostalUsu, LocalidadUsu, ProvinciaUsu, TelefonoUsu, FechaNacimientoUsu, ComentariosUsu, EMailUsu," +
             "Estado, UsuarioUsu, ClaveUsu FROM Usuarios WHERE " + condicion + " ORDER BY id";
-            //SqlConnection sqlConnection = new SqlConnection(consulta1);
-            //sqlConnection.Open();
+
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2, sqlConnection);
 
             DataSet dataSet = new DataSet();
@@ -89,9 +86,6 @@ namespace Sistema
             {
                 panel1.Visible = true;
                 panel2.Visible = true;
-                //String consulta1;
-                //consulta1 = "data source = " + Convert.ToString(mod.LeerHostDB()) + "; initial catalog = Comercio; integrated security = true";
-                //SqlConnection sqlConnection = new SqlConnection(consulta1);
 
                 string consulta2;
                 consulta2 = "SELECT UPPER(LTRIM(RTRIM(ISNULL(ApellidoUsu, '****')))) AS apellido, " +
@@ -101,7 +95,7 @@ namespace Sistema
                 "LTRIM(RTRIM(ISNULL(ComentariosUsu, ''))) AS comentarios, LTRIM(RTRIM(ISNULL(EMailUsu, ''))) AS email, ISNULL(Estado, 0) AS estado, LTRIM(RTRIM(ISNULL(UsuarioUsu, ''))) AS usuario, LTRIM(RTRIM(ISNULL(ClaveUsu, ''))) AS clave from Usuarios where id=";
 
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2 + Conversion.Val(lLegajo.Text), sqlConnection);
-                //Conversion.Val(label2.Text)
+                
                 DataSet dataSet = new DataSet();
                 sqlDataAdapter.Fill(dataSet, "Usuarios");
 

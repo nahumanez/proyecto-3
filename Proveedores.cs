@@ -27,18 +27,13 @@ namespace Sistema
         private void Proveedores_Load(object sender, EventArgs e)
         {
             Buscar("ApellidoProvee LIKE'" + textBox1.Text + "%'");
-
-            //this.Text = "Bienvenido ";
         }        
         private void Buscar(string condicion)
         {
-            //string consulta1;
-            // consulta1 = "data source = " + mod.LeerHostDB() + "; initial catalog = Comercio; integrated security = true";
             string consulta2;            
             consulta2 = "SELECT id, ApellidoProvee, NombreProvee, DocumentoProvee, CuitProvee, DomicilioProvee, PostalProvee, LocalidadProvee, ProvinciaProvee, TelefonoProvee, FechaNacimientoProvee, ComentariosProvee, EMailProvee," +
             "Estado FROM Proveedores WHERE " + condicion + " ORDER BY ApellidoProvee";          
-            //SqlConnection sqlConnection = new SqlConnection(consulta1);
-            //sqlConnection.Open();
+            
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2, sqlConnection);
 
             DataSet dataSet = new DataSet();
@@ -100,9 +95,6 @@ namespace Sistema
             {
                 panel1.Visible = true;
                 panel2.Visible = true;
-                //String consulta1;
-                //consulta1 = "data source = " + Convert.ToString(mod.LeerHostDB()) + "; initial catalog = Comercio; integrated security = true";
-                //SqlConnection sqlConnection = new SqlConnection(consulta1);
 
                 string consulta2; 
                 consulta2 = "SELECT UPPER(LTRIM(RTRIM(ISNULL(ApellidoProvee, '****')))) AS apellido, " +
@@ -112,7 +104,7 @@ namespace Sistema
                 "LTRIM(RTRIM(ISNULL(ComentariosProvee, ''))) AS comentarios, LTRIM(RTRIM(ISNULL(EMailProvee, ''))) AS email, ISNULL(Estado, 0) AS estado from Proveedores where id=";
 
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2 + Conversion.Val(label2.Text), sqlConnection);
-                //Conversion.Val(label2.Text)
+                
                 DataSet dataSet = new DataSet();
                 sqlDataAdapter.Fill(dataSet, "Proveedores");
 

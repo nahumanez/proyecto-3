@@ -46,8 +46,7 @@ namespace Sistema
             return System.Convert.ToDecimal(Convert.ToDouble(NTexto.Trim().Replace(",", ".")));
         }
         public bool SQL_Accion(string Sql_de_accion)
-        {
-            //SqlConnection sqlConnection = new SqlConnection("data source = " + Convert.ToString(LeerHostDB()) + "; initial catalog = Comercio; integrated security = true");
+        {            
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
 
             bool salida = true;

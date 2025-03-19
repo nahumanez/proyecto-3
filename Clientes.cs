@@ -34,8 +34,7 @@ namespace Sistema
             string consulta2;
             consulta2 = "SELECT id, ApellidoClien, NombreClien, DocumentoClien, CuitClien, DomicilioClien, PostalClien, LocalidadClien, ProvinciaClien, TelefonoClien, FechaNacimientoClien, ComentariosClien, EMailClien," +
             "Estado, UsuarioClien, ClaveClien FROM Clientes WHERE " + condicion + " ORDER BY id";
-            //SqlConnection sqlConnection = new SqlConnection("data source = " + mod.LeerHostDB() + "; initial catalog = Comercio; integrated security = true");
-            //sqlConnection.Open();
+            
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2, sqlConnection);
 
             DataSet dataSet = new DataSet();
@@ -92,7 +91,7 @@ namespace Sistema
             {
                 panel1.Visible = true;
                 panel2.Visible = true;
-                //SqlConnection sqlConnection = new SqlConnection("data source = " + Convert.ToString(mod.LeerHostDB()) + "; initial catalog = Comercio; integrated security = true");
+                
 
                 string consulta2;
                 consulta2 = "SELECT UPPER(LTRIM(RTRIM(ISNULL(ApellidoClien, '****')))) AS apellido, " +
@@ -102,7 +101,7 @@ namespace Sistema
                 "LTRIM(RTRIM(ISNULL(ComentariosClien, ''))) AS comentarios, LTRIM(RTRIM(ISNULL(EMailClien, ''))) AS email, ISNULL(Estado, 0) AS estado, LTRIM(RTRIM(ISNULL(UsuarioClien, ''))) AS usuario, LTRIM(RTRIM(ISNULL(ClaveClien, ''))) AS clave from Clientes where id=";
 
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(consulta2 + Conversion.Val(lLegajo.Text), sqlConnection);
-                //Conversion.Val(label2.Text)
+                
                 DataSet dataSet = new DataSet();
                 sqlDataAdapter.Fill(dataSet, "Clientes");
 

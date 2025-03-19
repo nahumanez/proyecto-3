@@ -34,11 +34,11 @@ namespace Sistema
                     conexion.Open();
 
                     string query = @"
-                SELECT 'Usuario' AS Tipo, NombreUsu AS Nombre, ApellidoUsu AS Apellido 
-                FROM Usuarios WHERE UsuarioUsu = @Usuario AND ClaveUsu = @Contraseña
-                UNION
-                SELECT 'Cliente' AS Tipo, NombreClien AS Nombre, ApellidoClien AS Apellido 
-                FROM Clientes WHERE UsuarioClien = @Usuario AND ClaveClien = @Contraseña";
+                    SELECT 'Usuario' AS Tipo, NombreUsu AS Nombre, ApellidoUsu AS Apellido 
+                    FROM Usuarios WHERE UsuarioUsu = @Usuario AND ClaveUsu = @Contraseña
+                    UNION
+                    SELECT 'Cliente' AS Tipo, NombreClien AS Nombre, ApellidoClien AS Apellido 
+                    FROM Clientes WHERE UsuarioClien = @Usuario AND ClaveClien = @Contraseña";
 
                     using (SqlCommand cmd = new SqlCommand(query, conexion))
                     {
@@ -62,7 +62,7 @@ namespace Sistema
                         MenuPrincipal menu = new MenuPrincipal(tipoUsuario);
                         menu.Text = $"Bienvenido {nombre} {apellido} ({tipoUsuario})";
                         menu.Show();
-                        this.Hide();
+                        //this.Hide();
                     }
                     else
                     {
